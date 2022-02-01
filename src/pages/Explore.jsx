@@ -1,5 +1,5 @@
 function Explore() {
-	return <div>Explore</div>
+	return <div>Explores</div>
 }
 
 export default Explore
