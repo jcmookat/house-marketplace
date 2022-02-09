@@ -4,8 +4,13 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { getDoc, doc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { db } from '../firebase.config'
+import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import shareIcon from '../assets/svg/shareIcon.svg'
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper-bundle.css'
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
 function Listing() {
 	const [listing, setListing] = useState(null)
@@ -23,6 +28,9 @@ function Listing() {
 			if (docSnap.exists()) {
 				setListing(docSnap.data())
 				setLoading(false)
+			} else {
+				navigate('/')
+				toast.error('Listing does not exist')
 			}
 		}
 		fetchListing()
@@ -37,7 +45,18 @@ function Listing() {
 	}
 	return (
 		<main>
-			{/* SLIDER */}
+			<Swiper slidesPerView={1} pagination={{ clickable: true }}>
+				{listing.imgUrls.map((url, index) => (
+					<SwiperSlide key={index}>
+						<div
+							className='swiperSlideDiv'
+							style={{
+								background: `url(${listing.imgUrls[index]}) center no-repeat`,
+								backgroundSize: 'cover',
+							}}></div>
+					</SwiperSlide>
+				))}
+			</Swiper>
 			<div
 				className='shareIconDiv'
 				onClick={() => {
