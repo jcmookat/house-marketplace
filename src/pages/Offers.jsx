@@ -31,7 +31,7 @@ function Offers() {
 					listingsRef,
 					where('offer', '==', true),
 					orderBy('timestamp', 'desc'),
-					limit(5),
+					limit(3),
 				) //categoryName is from App.js categoryName
 
 				//Execute query
