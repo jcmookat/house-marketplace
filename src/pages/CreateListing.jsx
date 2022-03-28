@@ -33,7 +33,7 @@ const initialFormState = {
 function CreateListing() {
 	const [loading, setLoading] = useState(false)
 	// const [geolocationEnabled, setGeolocationEnabled] = useState(true)
-	const geolocationEnabled = true
+	const geolocationEnabled = false
 	const [formData, setFormData] = useState(initialFormState)
 
 	const {
@@ -110,6 +110,8 @@ function CreateListing() {
 			)
 
 			const data = await response.json()
+
+			console.log(data)
 
 			geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
 			geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
